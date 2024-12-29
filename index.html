@@ -33,13 +33,19 @@
         .logo {
             background: #0073e6;
             height: 100px;
+            width: 100%;
             border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
-            color: white;
-            font-weight: bold;
+            overflow: hidden;
+        }
+
+        .logo img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
         }
 
         .input-field {
@@ -80,10 +86,12 @@
 <body>
     <div class="login-container">
         <h1>Bienvenu sur <span style="color: #0073e6;">Flutterwave</span></h1>
-        <div class="logo"><img src="OIP.jpg"></div>
+        <div class="logo">
+            <img src="OIP.jpg" alt="Logo">
+        </div>
         <p>Connectez-vous à votre tableau de bord</p>
         <input type="email" id="email" class="input-field" placeholder="E-mail">
-        <input type="password" id="password" class="input-field" placeholder="Mot de pass">
+        <input type="password" id="password" class="input-field" placeholder="Mot de passe">
         <button class="button" onclick="login()">Connexion</button>
         <div class="footer">
             © 2024—2025 <a href="#">Flutterwave Console</a>. Tout Droits réservés
@@ -91,7 +99,6 @@
     </div>
 
     <script>
-        // Exemple de contenu JSON simulé
         const users = [
             { "email": "user1@example.com", "name": "User One" },
             { "email": "user2@example.com", "name": "User Two" },
