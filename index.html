@@ -102,6 +102,64 @@
             color: #0073e6;
             text-decoration: none;
         }
+
+        /* Pop-up Styles */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .popup.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, #0073e6, #00c4ff);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .popup-content h2 {
+            margin: 0 0 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .popup-content p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .popup-content button {
+            background: #ff9800;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .popup-content button:hover {
+            background: #e68900;
+        }
     </style>
 </head>
 <body>
@@ -116,19 +174,22 @@
             <input type="password" id="password" placeholder="Mot de passe">
             <button onclick="togglePasswordVisibility()">👁️</button>
         </div>
-        <button class="button" onclick="login()">Connexion</button>
+        <button class="button" onclick="showPopup()">Connexion</button>
         <div class="footer">
             © 2024—2025 <a href="#">Flutterwave Console</a>. Tous droits réservés.
         </div>
     </div>
 
-    <script>
-        // Données utilisateur stockées dans le script
-        const users = {
-            email: ["aaa@gmail.com", "bbb@gmail.com", "ccc@gmail.com"],
-            nom: ["nom1", "nom2", "nom3"]
-        };
+    <!-- Pop-up -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h2>Bienvenue à Flutterwave!</h2>
+            <p>Votre connexion est un succès.</p>
+            <button onclick="redirectToDashboard()">Accéder au tableau de bord</button>
+        </div>
+    </div>
 
+    <script>
         function togglePasswordVisibility() {
             const passwordField = document.getElementById("password");
             if (passwordField.type === "password") {
@@ -138,32 +199,12 @@
             }
         }
 
-        function login() {
-            const emailInput = document.getElementById("email").value.trim().toLowerCase();
-            const passwordInput = document.getElementById("password").value.trim();
+        function showPopup() {
+            const popup = document.getElementById("popup");
+            popup.classList.add("active");
+        }
 
-            if (!emailInput || !passwordInput) {
-                alert("Veuillez remplir tous les champs.");
-                return;
-            }
-
-            const emailIndex = users.email.findIndex(email => email.toLowerCase() === emailInput);
-
-            if (emailIndex === -1) {
-                alert("Adresse e-mail non trouvée. Veuillez vérifier votre saisie.");
-                return;
-            }
-
-            if (passwordInput !== "flutterwave365") {
-                alert("Mot de passe incorrect.");
-                return;
-            }
-
-            const userName = users.nom[emailIndex];
-            localStorage.setItem("email", emailInput);
-            localStorage.setItem("name", userName);
-
-            alert(`Bienvenue, ${userName}!`);
+        function redirectToDashboard() {
             window.location.href = "accueil.html";
         }
     </script>
