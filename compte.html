@@ -201,10 +201,10 @@
         document.getElementById("email").textContent = email;
         document.getElementById("account-status").textContent = accountStatus;
 
+        // Redirection vers le lien de vérification
         const verifyBtn = document.getElementById("verify-btn");
         verifyBtn.addEventListener("click", () => {
-            alert("Redirection vers la page de vérification...");
-            location.href = 'verification.html';
+            window.open('https://cwosa9oe.forms.app/verification', '_blank');
         });
     </script>
 </body>
