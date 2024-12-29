@@ -49,11 +49,32 @@
         }
 
         .input-field {
-            width: 100%;
+            width: calc(100% - 30px);
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
+        }
+
+        .password-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 0 10px;
+        }
+
+        .password-container input {
+            flex-grow: 1;
+            border: none;
+            padding: 10px;
+        }
+
+        .password-container button {
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
         .button {
@@ -91,38 +112,59 @@
         </div>
         <p>Connectez-vous à votre tableau de bord</p>
         <input type="email" id="email" class="input-field" placeholder="E-mail">
-        <input type="password" id="password" class="input-field" placeholder="Mot de passe">
+        <div class="password-container">
+            <input type="password" id="password" placeholder="Mot de passe">
+            <button onclick="togglePasswordVisibility()">👁️</button>
+        </div>
         <button class="button" onclick="login()">Connexion</button>
         <div class="footer">
-            © 2024—2025 <a href="#">Flutterwave Console</a>. Tout Droits réservés
+            © 2024—2025 <a href="#">Flutterwave Console</a>. Tous droits réservés.
         </div>
     </div>
 
     <script>
-        const users = [
-            { "email": "user1@example.com", "name": "User One" },
-            { "email": "user2@example.com", "name": "User Two" },
-            { "email": "user3@example.com", "name": "User Three" }
-        ];
+        async function loadJSON() {
+            const response = await fetch("flutterwave.json");
+            return response.json();
+        }
 
-        function login() {
-            const emailInput = document.getElementById("email").value;
-            const passwordInput = document.getElementById("password").value;
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+
+        async function login() {
+            const emailInput = document.getElementById("email").value.trim();
+            const passwordInput = document.getElementById("password").value.trim();
+
+            if (!emailInput || !passwordInput) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            const data = await loadJSON();
+            const emailIndex = data.email.indexOf(emailInput);
+
+            if (emailIndex === -1) {
+                alert("Adresse e-mail non trouvée. Veuillez vérifier votre saisie.");
+                return;
+            }
 
             if (passwordInput !== "flutterwave365") {
                 alert("Mot de passe incorrect.");
                 return;
             }
 
-            const user = users.find(user => user.email === emailInput);
+            const userName = data.nom[emailIndex];
+            localStorage.setItem("email", emailInput);
+            localStorage.setItem("name", userName);
 
-            if (user) {
-                alert(`Bienvenue, ${user.name}!`);
-                // Redirection à venir ici, par exemple :
-                // window.location.href = "/dashboard.html";
-            } else {
-                alert("Email non trouvé. Veuillez réessayer.");
-            }
+            alert(`Bienvenue, ${userName}!`);
+            window.location.href = "accueil.html";
         }
     </script>
 </body>
