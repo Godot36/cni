@@ -125,29 +125,31 @@
         }
 
         .popup-content {
-            background: linear-gradient(135deg, #0073e6, #00c4ff);
-            color: #ffffff;
+            background: #ffffff;
             padding: 30px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             width: 90%;
+            font-family: Arial, sans-serif;
         }
 
         .popup-content h2 {
             margin: 0 0 15px;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
+            color: #0073e6;
         }
 
         .popup-content p {
             margin: 10px 0;
             font-size: 16px;
+            color: #333;
         }
 
         .popup-content button {
-            background: #ff9800;
+            background: #0073e6;
             border: none;
             color: white;
             padding: 12px 20px;
@@ -158,13 +160,13 @@
         }
 
         .popup-content button:hover {
-            background: #e68900;
+            background: #005bb5;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h1>Bienvenu sur <span style="color: #0073e6;">Flutterwave</span></h1>
+        <h1>Bienvenue sur <span style="color: #0073e6;">Flutterwave</span></h1>
         <div class="logo">
             <img src="OIP.jpg" alt="Logo">
         </div>
@@ -174,7 +176,7 @@
             <input type="password" id="password" placeholder="Mot de passe">
             <button onclick="togglePasswordVisibility()">👁️</button>
         </div>
-        <button class="button" onclick="showPopup()">Connexion</button>
+        <button class="button" onclick="login()">Connexion</button>
         <div class="footer">
             © 2024—2025 <a href="#">Flutterwave Console</a>. Tous droits réservés.
         </div>
@@ -183,24 +185,54 @@
     <!-- Pop-up -->
     <div class="popup" id="popup">
         <div class="popup-content">
-            <h2>Bienvenue à Flutterwave!</h2>
-            <p>Votre connexion est un succès.</p>
+            <h2 id="popup-title">Connexion réussie</h2>
+            <p id="popup-message">Bienvenue, <span id="user-name"></span> !</p>
             <button onclick="redirectToDashboard()">Accéder au tableau de bord</button>
         </div>
     </div>
 
     <script>
+        const users = {
+            email: ["aaa@gmail.com", "bbb@gmail.com", "ccc@gmail.com"],
+            nom: ["Nom1", "Nom2", "Nom3"]
+        };
+
         function togglePasswordVisibility() {
             const passwordField = document.getElementById("password");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
-            }
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
         }
 
-        function showPopup() {
+        function login() {
+            const emailInput = document.getElementById("email").value.trim().toLowerCase();
+            const passwordInput = document.getElementById("password").value.trim();
+
+            if (!emailInput || !passwordInput) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            const emailIndex = users.email.findIndex(email => email.toLowerCase() === emailInput);
+
+            if (emailIndex === -1) {
+                alert("Adresse e-mail non trouvée. Veuillez vérifier votre saisie.");
+                return;
+            }
+
+            if (passwordInput !== "flutterwave365") {
+                alert("Mot de passe incorrect.");
+                return;
+            }
+
+            const userName = users.nom[emailIndex];
+            localStorage.setItem("email", emailInput);
+            localStorage.setItem("name", userName);
+
+            showPopup(userName);
+        }
+
+        function showPopup(name) {
             const popup = document.getElementById("popup");
+            document.getElementById("user-name").textContent = name;
             popup.classList.add("active");
         }
 
