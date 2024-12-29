@@ -149,8 +149,8 @@
         <div class="profile-section">
             <p class="profile-title">Informations du compte</p>
             <div class="profile-info">
-                <p><strong>Nom d'utilisateur :</strong> <span id="username">Jean Dupont</span></p>
-                <p><strong>Email :</strong> <span id="email">jean.dupont@example.com</span></p>
+                <p><strong>Nom d'utilisateur :</strong> <span id="username"></span></p>
+                <p><strong>Email :</strong> <span id="email"></span></p>
                 <p><strong>Statut du compte :</strong> <span class="status">Non vérifié</span></p>
             </div>
             <button class="verify-btn" id="verify-btn">Vérifier mon compte</button>
@@ -191,20 +191,19 @@
     </div>
 
     <script>
-        // Simuler des données enregistrées dans le localStorage
-        localStorage.setItem("username", "Nadine Emil");
-        localStorage.setItem("email", "nadine.emil@example.com");
-
         // Récupérer les données depuis le localStorage
         const username = localStorage.getItem("username");
         const email = localStorage.getItem("email");
 
-        // Mettre à jour les informations dans le DOM
-        document.getElementById("username").textContent = username || "Jean Dupont";
-        document.getElementById("email").textContent = email || "jean.dupont@example.com";
+        if (username && email) {
+            document.getElementById("username").textContent = username;
+            document.getElementById("email").textContent = email;
+        } else {
+            alert("Aucune donnée utilisateur trouvée. Redirection vers la page de connexion.");
+            location.href = 'connexion.html';
+        }
 
-        const verifyBtn = document.getElementById("verify-btn");
-        verifyBtn.addEventListener("click", () => {
+        document.getElementById("verify-btn").addEventListener("click", () => {
             alert("Redirection vers la page de vérification...");
             location.href = 'verification.html';
         });
