@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Missions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Style global */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .app-container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ffd700, #ffc107);
+            color: #1a1a1a;
+            text-align: center;
+            padding: 20px 15px;
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin: 0;
+        }
+
+        .missions-section {
+            padding: 20px 15px;
+        }
+
+        .missions-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .missions-description {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .missions-table {
+            width: 100%;
+            background: #fff9e6;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .missions-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .missions-table th, .missions-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .missions-table th {
+            color: #d4ac00;
+            font-size: 14px;
+        }
+
+        .missions-table td {
+            font-size: 14px;
+        }
+
+        .missions-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .start-btn {
+            margin-top: 15px;
+            background: #ffc107;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background: #e6ac00;
+        }
+
+        .tasks-done-section {
+            margin-top: 20px;
+        }
+
+        .tasks-done-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .tasks-done-list {
+            margin: 10px 0;
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            background: #ffc107;
+            padding: 10px 0;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer button {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 10px;
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .footer button i {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+
+        .footer button.active {
+            color: #d4ac00;
+        }
+
+        /* Popup */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .popup.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 350px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content button {
+            background: #ffa000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-content button:hover {
+            background: #ff8f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Tableau de bord - MISSIONS</h1>
+        </div>
+        <!-- Missions Section -->
+        <div class="missions-section">
+            <p class="missions-title">TÂCHES : 3</p>
+            <p class="missions-description">Nous avons sélectionné 3 tâches pour vous qui correspondent parfaitement à votre profil.</p>
+            <div class="missions-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Niveau</th>
+                            <th>Titre</th>
+                            <th>Description</th>
+                            <th>Revenus estimés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>I</td>
+                            <td>Créer une affiche</td>
+                            <td>Faites une affiche simple pour un produit.</td>
+                            <td>7,500 XAF</td>
+                        </tr>
+                        <tr>
+                            <td>II</td>
+                            <td>Vérifier un texte</td>
+                            <td>Lisez et corrigez un petit texte pour une pub.</td>
+                            <td>8,000 XAF</td>
+                        </tr>
+                        <tr>
+                            <td>III</td>
+                            <td>Répondre à un sondage</td>
+                            <td>Donnez votre avis dans un sondage en ligne.</td>
+                            <td>7,500 XAF</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="start-btn" id="start-btn">COMMENCER LE TRAVAIL</button>
+            </div>
+        </div>
+        <!-- Tasks Done Section -->
+        <div class="tasks-done-section">
+            <p class="tasks-done-title">Tâches effectuées</p>
+            <div class="tasks-done-list">
+                Aucune tâche effectuée
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="footer">
+            <button onclick="location.href='accueil.html'">
+                <i class="fa-solid fa-house"></i>
+                Accueil
+            </button>
+            <button onclick="location.href='missions.html'" class="active">
+                <i class="fa-solid fa-briefcase"></i>
+                Missions
+            </button>
+            <button onclick="location.href='compte.html'">
+                <i class="fa-solid fa-user"></i>
+                Compte
+            </button>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <p>Cette action nécessite une vérification de votre compte.</p>
+            <button onclick="location.href='verification.html'">Vérifier mon compte</button>
+        </div>
+    </div>
+
+    <script>
+        const popup = document.getElementById("popup");
+        const startBtn = document.getElementById("start-btn");
+
+        startBtn.addEventListener("click", () => {
+            popup.classList.add("active");
+        });
+
+        popup.addEventListener("click", (event) => {
+            if (event.target === popup) {
+                popup.classList.remove("active");
+            }
+        });
+    </script>
+</body>
+</html>

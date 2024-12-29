@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Flutterwave</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .login-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            background: #0073e6;
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .button {
+            background: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #005bb5;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .footer a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Bienvenu sur <span style="color: #0073e6;">Flutterwave</span></h1>
+        <div class="logo">Logo de l’entreprise ici</div>
+        <p>Connectez-vous à votre tableau de bord</p>
+        <input type="email" id="email" class="input-field" placeholder="E-mail">
+        <input type="password" id="password" class="input-field" placeholder="Mot de pass">
+        <button class="button" onclick="login()">Connexion</button>
+        <div class="footer">
+            © 2024—2025 <a href="#">Flutterwave Console</a>. Tout Droits réservés
+        </div>
+    </div>
+
+    <script>
+        // Exemple de contenu JSON simulé
+        const users = [
+            { "email": "user1@example.com", "name": "User One" },
+            { "email": "user2@example.com", "name": "User Two" },
+            { "email": "user3@example.com", "name": "User Three" }
+        ];
+
+        function login() {
+            const emailInput = document.getElementById("email").value;
+            const passwordInput = document.getElementById("password").value;
+
+            if (passwordInput !== "flutterwave365") {
+                alert("Mot de passe incorrect.");
+                return;
+            }
+
+            const user = users.find(user => user.email === emailInput);
+
+            if (user) {
+                alert(`Bienvenue, ${user.name}!`);
+                // Redirection à venir ici, par exemple :
+                // window.location.href = "/dashboard.html";
+            } else {
+                alert("Email non trouvé. Veuillez réessayer.");
+            }
+        }
+    </script>
+</body>
+</html>
